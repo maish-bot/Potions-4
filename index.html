@@ -234,12 +234,12 @@
         // Quantity Controls
         const qtyInput = document.getElementById('qty-input');
         
-        document.getElementById('qty-minus').addEventListener('click', () => {
+        document.getElementById('qty-minus')?.addEventListener('click', () => {
             let val = parseInt(qtyInput.value);
             if (val > 1) qtyInput.value = val - 1;
         });
 
-        document.getElementById('qty-plus').addEventListener('click', () => {
+        document.getElementById('qty-plus')?.addEventListener('click', () => {
             let val = parseInt(qtyInput.value);
             qtyInput.value = val + 1;
         });
@@ -310,6 +310,23 @@
                     }, 50);
                 }
             });
+        });
+
+        // LOCK PAGE SCROLL WHEN OVERLAY INPUT IS FOCUSED (PREVENTS MOBILE UNCENTERING)
+        const overlayInputs = document.querySelectorAll('.overlay-input');
+
+        overlayInputs.forEach(input => {
+          input.addEventListener('focus', () => {
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            window.scrollTo(0, 0);
+          });
+          
+          input.addEventListener('blur', () => {
+            document.body.style.position = '';
+            document.body.style.width = '';
+            window.scrollTo(0, 0);
+          });
         });
     </script>
 </body>
